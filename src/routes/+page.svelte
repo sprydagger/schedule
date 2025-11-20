@@ -7,6 +7,7 @@
     import dayjs from "dayjs";
     import Settings from "$lib/components/Settings.svelte";
     import Lunch from "$lib/components/Lunch.svelte";
+    import Announcements from "$lib/components/Announcements.svelte";
 
     const schedule = dayjs().day() === 2 ? sched_sst : sched_normal;
 </script>
@@ -20,4 +21,5 @@
 <RemainingTime {schedule} />
 <ScheduleList {schedule} />
 <Lunch />
+<Announcements />
 <Settings />

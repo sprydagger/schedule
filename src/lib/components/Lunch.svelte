@@ -6,9 +6,10 @@
     import { onMount } from "svelte";
 
     let rawData;
-    let todayData, tomorrowData;
-    let todayGrouped = [], tomorrowGrouped = [];
+    let todayGrouped = [];
+    let tomorrowGrouped = [];
     let error;
+    let loading = true;
 
     function formatDate(date) {
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
@@ -34,14 +35,20 @@
         return grouped;
     }
 
-    onMount(async () => {
+    async function fetchLunch() {
+        loading = true;
+        error = null;
+        rawData = null;
+        todayGrouped = [];
+        tomorrowGrouped = [];
+
         try {
             const now = new Date();
             const year = now.getFullYear();
             const month = now.getMonth() + 1;
 
             const response = await fetch(
-                `https://api.allorigins.win/get?url=${encodeURIComponent(`https://menus.healthepro.com/api/organizations/2455/menus/108947/year/${year}/month/${month}/date_overwrites`)}`
+                `https://api.allorigins.win/get?url=${encodeURIComponent(`https://menus.healthepro.com/api/organizations/2455/menus/108947/year/${year}/month/${month}/date_overwrites`)}`,
             );
 
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -57,16 +64,22 @@
         } catch (e) {
             error = e.message;
             console.error(e);
+        } finally {
+            loading = false;
         }
-    });
+    }
+
+    onMount(fetchLunch);
 </script>
 
 <br />
 <details>
     <summary>Lunch</summary>
-    {#if error}
+    {#if loading}
+        <p>Loading...</p>
+    {:else if error}
         <p style="color:red">{error}</p>
-    {:else}
+    {:else if rawData}
         <div class="days">
             <div>
                 <h3>Today</h3>
@@ -101,4 +114,5 @@
             </div>
         </div>
     {/if}
+    <button on:click={fetchLunch}>Refresh</button>
 </details>

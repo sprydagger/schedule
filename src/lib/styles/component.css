@@ -71,3 +71,30 @@ h3 {
 h4 {
     margin: 10px 0;
 }
+
+button {
+    font-family: 'PT Mono';
+    background-color: light-dark(var(--ctp-latte-surface1), var(--ctp-mocha-surface1));
+    color: light-dark(var(--ctp-latte-text), var(--ctp-mocha-text));
+    border: 1px solid light-dark(var(--ctp-latte-surface2), var(--ctp-mocha-surface2));
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+button:hover {
+    background-color: light-dark(var(--ctp-latte-surface2), var(--ctp-mocha-surface2));
+    border-color: light-dark(var(--ctp-latte-blue), var(--ctp-mocha-blue));
+}
+
+button:active {
+    background-color: light-dark(var(--ctp-latte-surface3), var(--ctp-mocha-surface3));
+    border-color: light-dark(var(--ctp-latte-blue), var(--ctp-mocha-blue));
+}
+
+button:focus {
+    outline: none;
+    border-color: light-dark(var(--ctp-latte-blue), var(--ctp-mocha-blue));
+    box-shadow: 0 0 0 2px light-dark(var(--ctp-latte-flamingo), var(--ctp-mocha-flamingo));
+}
