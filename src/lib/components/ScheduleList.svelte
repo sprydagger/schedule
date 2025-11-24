@@ -27,9 +27,10 @@
         return arr;
     }
 
-    schedule = $prefs.seniorCitizen
-        ? swapObjectsInArray(schedule, "SH", "Lunch")
-        : schedule;
+    let altLunchSchedule = structuredClone(schedule);
+    swapObjectsInArray(altLunchSchedule, "SH", "Lunch");
+
+    $: _schedule = $prefs.seniorCitizen ? altLunchSchedule : schedule;
 
     dayjs.extend(customParseFormat);
 
@@ -67,7 +68,7 @@
 
     onDestroy(() => clearInterval(timer));
 
-    $: highlighted = schedule.map((item) => isCurrentClass(item, now));
+    $: highlighted = _schedule.map((item) => isCurrentClass(item, now));
 </script>
 
 <table id="schedule">
@@ -80,7 +81,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each schedule as item, i}
+        {#each _schedule as item, i}
             <tr class={highlighted[i] ? "now" : ""}>
                 <td>
                     {#if typeof item.period == "number"}

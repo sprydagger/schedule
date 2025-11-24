@@ -25,6 +25,5 @@
         {/each}
 
         <Toggle bind:checked={$prefs.seniorCitizen}>Second Lunch</Toggle>
-        <h4>Must reload to apply.</h4>
     </section>
 </details>
