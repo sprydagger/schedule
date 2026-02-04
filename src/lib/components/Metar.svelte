@@ -16,6 +16,10 @@
     let tafInterval;
     let unsubscribe;
 
+    function cToF(c) {
+        return Math.round((c * 9) / 5 + 32);
+    }
+
     function formatTaf(raw) {
         if (!raw || raw === "NO DATA" || raw === "UNAVAILABLE") return raw;
 
@@ -24,6 +28,21 @@
             .replace(/\s+(TEMPO)/g, "\n  $1")
             .replace(/\s+(BECMG)/g, "\n  $1")
             .replace(/\s+(PROB\d{2})/g, "\n  $1");
+    }
+
+    function formatMetar(data, metar) {
+        if (!data || data === "NO DATA" || data === "UNAVAILABLE") return data;
+
+        
+        return metar
+            .replace(
+                data.temperature.repr,
+                cToF(data.temperature.value).toString().replace("-", "M"),
+            )
+            .replace(
+                data.dewpoint.repr,
+                cToF(data.dewpoint.value).toString().replace("-", "M"),
+            );
     }
 
     async function fetchMetar() {
@@ -43,6 +62,7 @@
 
             const data = await res.json();
             metar = "METAR " + data.raw || "NO DATA";
+            metar = formatMetar(data, metar);
         } catch {
             metar = "UNAVAILABLE";
         }

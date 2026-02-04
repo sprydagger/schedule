@@ -32,13 +32,16 @@
                 bind:value={$prefs.metarLocation}
                 placeholder="Enter location"
                 size="25"
-            /></label>
+            /></label
+        >
+        <br />
         <label
             >TAF location: <input
                 type="text"
                 bind:value={$prefs.tafLocation}
                 placeholder="Enter location"
                 size="25"
-            /></label>
+            /></label
+        >
     </section>
 </details>
