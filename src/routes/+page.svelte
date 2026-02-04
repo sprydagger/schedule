@@ -24,7 +24,7 @@
 <Clock />
 <RemainingTime {schedule} />
 <ScheduleList {schedule} />
+<Metar {apiKey} />
 <Lunch />
 <Announcements />
 <Settings />
-<Metar {apiKey} />
