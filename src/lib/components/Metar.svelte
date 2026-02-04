@@ -31,7 +31,7 @@
 
         try {
             const res = await fetch(
-                `https://avwx.rest/api/metar/${$prefs.airportCode}`,
+                `https://avwx.rest/api/metar/${$prefs.metarLocation}?onfail=nearest`,
                 {
                     headers: {
                         Authorization: `Bearer ${apiKey}`,
@@ -53,7 +53,7 @@
 
         try {
             const res = await fetch(
-                `https://avwx.rest/api/taf/${$prefs.airportCode}?airport=true`,
+                `https://avwx.rest/api/taf/${$prefs.tafLocation}?onfail=nearest`,
                 {
                     headers: {
                         Authorization: `Bearer ${apiKey}`,
@@ -75,16 +75,16 @@
         apiKey = env.PUBLIC_AVWX_TOKEN;
 
         unsubscribe = prefs.subscribe(($prefs) => {
-            fetchMetar($prefs.airportCode);
-            fetchTaf($prefs.airportCode);
+            fetchMetar($prefs.metarLocation);
+            fetchTaf($prefs.tafLocation);
         });
 
         metarInterval = setInterval(() => {
-            fetchMetar($prefs.airportCode);
+            fetchMetar($prefs.metarLocation);
         }, METAR_REFRESH_MS);
 
         tafInterval = setInterval(() => {
-            fetchTaf($prefs.airportCode);
+            fetchTaf($prefs.tafLocation);
         }, TAF_REFRESH_MS);
 
         return () => {
