@@ -1,7 +1,4 @@
 <script>
-    import { env } from "$env/dynamic/public";
-
-    const apiKey = env.PUBLIC_AVWX_TOKEN;
     import Clock from "$lib/components/Clock.svelte";
     import ScheduleList from "$lib/components/ScheduleList.svelte";
     import RemainingTime from "$lib/components/RemainingTime.svelte";
@@ -24,7 +21,7 @@
 <Clock />
 <RemainingTime {schedule} />
 <ScheduleList {schedule} />
-<Metar {apiKey} />
+<Metar />
 <Lunch />
 <Announcements />
 <Settings />
