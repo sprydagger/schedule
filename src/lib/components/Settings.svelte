@@ -27,10 +27,17 @@
         <Toggle bind:checked={$prefs.seniorCitizen}>Second Lunch</Toggle>
         <br />
         <label
-            >Weather location: <input
+            >METAR location: <input
                 type="text"
-                bind:value={$prefs.airportCode}
-                placeholder="Enter weather location"
+                bind:value={$prefs.metarLocation}
+                placeholder="Enter location"
+                size="25"
+            /></label>
+        <label
+            >TAF location: <input
+                type="text"
+                bind:value={$prefs.tafLocation}
+                placeholder="Enter location"
                 size="25"
             /></label>
     </section>
