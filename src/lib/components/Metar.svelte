@@ -10,6 +10,7 @@
 
     const REFRESH_MS = 5 * 60 * 1000;
     let interval;
+    let unsubscribe;
 
     async function fetchMetar() {
         if (!$prefs.airportCode) return;
@@ -37,15 +38,21 @@
         }
     }
 
-    $: if ($prefs.airportCode) {
-        fetchMetar();
-    }
-
     onMount(() => {
-        fetchMetar();
-        interval = setInterval(fetchMetar, REFRESH_MS);
+        // initial + reactive updates
+        unsubscribe = prefs.subscribe(($prefs) => {
+            fetchMetar($prefs.airportCode);
+        });
 
-        return () => clearInterval(interval);
+        // periodic refresh
+        interval = setInterval(() => {
+            fetchMetar($prefs.airportCode);
+        }, REFRESH_MS);
+
+        return () => {
+            unsubscribe();
+            clearInterval(interval);
+        };
     });
 </script>
 

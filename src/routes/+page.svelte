@@ -1,5 +1,7 @@
 <script>
-    import { PUBLIC_AVWX_TOKEN } from "$env/static/public";
+    import { env } from "$env/dynamic/public";
+
+    const apiKey = env.PUBLIC_AVWX_TOKEN;
     import Clock from "$lib/components/Clock.svelte";
     import ScheduleList from "$lib/components/ScheduleList.svelte";
     import RemainingTime from "$lib/components/RemainingTime.svelte";
@@ -25,4 +27,4 @@
 <Lunch />
 <Announcements />
 <Settings />
-<Metar apiKey={PUBLIC_AVWX_TOKEN} />
+<Metar {apiKey} />
