@@ -25,5 +25,13 @@
         {/each}
 
         <Toggle bind:checked={$prefs.seniorCitizen}>Second Lunch</Toggle>
+        <br />
+        <label
+            >Airport code: <input
+                type="text"
+                bind:value={$prefs.airportCode}
+                placeholder="Enter airport code"
+                size="25"
+            /></label>
     </section>
 </details>
